@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Redirect;
 
 use App\sections;
 use Illuminate\Http\Request;
@@ -95,9 +96,12 @@ class SectionsController extends Controller
      * @param  \App\sections  $sections
      * @return \Illuminate\Http\Response
      */
-    public function edit(sections $sections)
+    public function edit($id)
     {
-        //
+        $sections = sections::all();
+        $edit = sections::findOrfail($id);
+
+        return view ('sections.edit',['sections' => $sections , 'edit' => $edit ]);  
     }
 
     /**
@@ -107,9 +111,24 @@ class SectionsController extends Controller
      * @param  \App\sections  $sections
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, sections $sections)
+    public function update(Request $request)
     {
-        //
+        $section_id = $request->section_id;
+        $update = sections::findorfail($section_id);
+    
+                $update->update([
+                    'section_name' => $request->section_name,
+                    'description' => $request->description,
+                    
+                ]);
+
+        //   return redirect('sections/sections', $section_id);
+        // return \Redirect::back('sections')->with(['global' => 'ERROR deleted the File!.', 'type' => 'danger']);
+        // return \Redirect::back();
+        return redirect('/sections');
+
+        //   return redirect('home',$section_id);
+
     }
 
     /**

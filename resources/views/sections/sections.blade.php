@@ -99,8 +99,16 @@
                                     <td>{{$i}}</td>
                                     <td> {{$section->section_name}}</td>
                                     <td> {{$section->description}}</td>
-                                    <td> {{$section->section_name}}</td>
-                               
+
+                                    <td>
+                                        {{-- <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale" data-toggle="modal" href="#modaldemo3 {{route('sections.edit', $section->id)}}">
+                                            <i class="fas fa-pencil"></i>
+                                        </a> --}}
+
+                                        <a class="btn btn-sm btn-info" href="{{route('sections.edit', $section->id)}}">
+                                            <i class="fas fa-pencil"></i>
+                                        </a>
+                                    </td>                               
                                   
 
                                 </tr>
@@ -149,7 +157,46 @@
             </div>
         </div>
         <!-- End Basic modal -->
+  <!-- Basic modal ####### EDIT SECTIONS ####### -->
+  {{-- <div class="modal" id="modaldemo3">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title"> قسم تعديل</h6><button aria-label="Close" class="close"
+                    data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+        
 
+            <form action="#"enctype="multipart/form-data"  method="post">
+                @csrf
+
+                <input type="hidden" value="{{$edit->id}}" name="section_id">
+                
+                <div class="form-group">
+                    <label for="exampleInputEmail1">اسم القسم </label>
+                    <input value="{{$edit->section_name}}" type="text" class="form-control" id="section_name" name="section_name"
+                        aria-describedby="emailHelp">
+
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">ملاحظات </label>
+                    <textarea value="{{$edit->description}}" class="form-control" id="description" name="description" rows="3"></textarea>
+                </div>
+            
+            
+            <div class="modal-footer">
+                <button class="btn btn-success" type="submit">تاكيد</button>
+                <button class="btn btn-secondary" data-dismiss="modal" type="button">اغلاق</button>
+            </div>
+            
+         </form>
+        </div>
+        </div>
+    </div>
+</div> --}}
+<!-- End Basic modal -->
     </div>
     <!-- row closed -->
     </div>
