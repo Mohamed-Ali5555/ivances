@@ -26,12 +26,38 @@
     <!-- breadcrumb -->
 @endsection
 @section('content')
+                  {{-- ########################3#33# --}}
+                            {{-- errors code  --}}
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                                @endif
+                        {{-- ############################3 --}}      
     <!-- row -->
     <div class="row row-sm">
+
+    
+
+
 
     @if(session()->has('Add'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
     <strong>{{session()->get('Add')}}</strong>
+    <button type="button" class="close" date-dismiss="alert" aria-lable="close">
+    <span aria-hidden="true">&times;</span>
+     </button>
+    </div>
+ @endif
+  
+
+  @if(session()->has('Error'))
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>{{session()->get('Error')}}</strong>
     <button type="button" class="close" date-dismiss="alert" aria-lable="close">
     <span aria-hidden="true">&times;</span>
      </button>
@@ -63,14 +89,22 @@
 
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody> 
+                            <?php $i=0 ?>
+                            @foreach ( $sections as $section )
+                              <?php $i++ ?>
+
                                 <tr>
-                                    <td>1</td>
-                                    <td>System Architect</td>
-                                    <td>Edinburgh</td>
-                                    <td>61</td>
+                               
+                                    <td>{{$i}}</td>
+                                    <td> {{$section->section_name}}</td>
+                                    <td> {{$section->description}}</td>
+                                    <td> {{$section->section_name}}</td>
+                               
+                                  
 
                                 </tr>
+                                 @endforeach
 
                             </tbody>
                         </table>
@@ -87,18 +121,7 @@
                             data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                     </div>
                     <div class="modal-body">
-                    {{-- ########################3#33# --}}
-                          {{-- errors code  --}}
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            @endif
-                    {{-- ############################3 --}}
+                
 
                     <form action="{{route('sections.store')}}"enctype="multipart/form-data"  method="post">
                        {{csrf_field()}}

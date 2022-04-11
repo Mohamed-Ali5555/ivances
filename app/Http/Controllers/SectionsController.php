@@ -15,7 +15,8 @@ class SectionsController extends Controller
      */
     public function index()
     {
-        return view('sections.sections');
+        $sections =sections::all();
+        return view('sections.sections',compact('sections'));
     }
 
     /**
@@ -38,24 +39,29 @@ class SectionsController extends Controller
     {
 
         $validated = $request->validate([
-            'section_name' => 'required|max:255|min:2',
+            'section_name' => 'required|unique:sections|max:255|min:2',
             'description' => 'required|max:255|min:2',
-            
+        ],[
+
+            'section_name.required'=>'يرجى ادخال اسم القسم',
+            'section_name.unique'=>'اسم القسم مسجل مسبقا',
+            'description.required'=>'يرجى ادخال اسم القسم',
+
 
         ]);
 
 
 
-        $input = $request->all();
+        // $input = $request->all();
 
-        //check the log
+        // //check the log
 
-        $b_exists = sections::where('section_name','=',$input['section_name'])->exists();
+        // $b_exists = sections::where('section_name','=',$input['section_name'])->exists();
 
-        if($b_exists){
-            session()->flash('Error','خطا القسم مسجل مسبقا');
-            return redirect('/sections');
-        }else{
+        // if($b_exists){
+        //     session()->flash('Error','خطا القسم مسجل مسبقا');
+        //     return redirect('/sections');
+        // }else{
              sections::create([
                 'section_name' => $request->section_name,
                 'description' => $request->description,
@@ -70,7 +76,7 @@ class SectionsController extends Controller
        
  
       
-    }     
+     
 
     /**
      * Display the specified resource.
