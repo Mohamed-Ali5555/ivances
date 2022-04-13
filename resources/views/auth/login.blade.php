@@ -83,6 +83,8 @@
 
 			</div>
 		</div>
+		        @include('sweetalert::alert');
+
 @endsection
 @section('js')
 @endsection

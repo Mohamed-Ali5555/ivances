@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use RealRashid\SweetAlert\Facades\Alert;
 
 use App\sections;
 use Illuminate\Http\Request;
@@ -68,8 +69,8 @@ class SectionsController extends Controller
                 'created_by' => (Auth::user()->name),
              ]);
 
-             session()->flash('Add','تم اضافه القسم بنجاح');
-             return redirect('/sections');
+            //  session()->flash('Add','تم اضافه القسم بنجاح');
+             return redirect('/sections')->with('success','category has been created');
         }
 
  
@@ -95,9 +96,11 @@ class SectionsController extends Controller
      * @param  \App\sections  $sections
      * @return \Illuminate\Http\Response
      */
-    public function edit(sections $sections)
+    public function edit($id)
     {
-        //
+        // $sections = sections::all();
+        // $edit1 = sections::findorfail($id);
+        // return view ('sections.sections',['sections'=>$sections,'edit1' => $edit1]);
     }
 
     /**
@@ -107,9 +110,30 @@ class SectionsController extends Controller
      * @param  \App\sections  $sections
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, sections $sections)
+    public function update(Request $request)
     {
-        //
+        $id = $request->id;
+
+        $this->validate($request, [
+
+            'section_name' => 'required|max:255|unique:sections,section_name,'.$id,
+            'description' => 'required',
+        ],[
+
+            'section_name.required' =>'يرجي ادخال اسم القسم',
+            'section_name.unique' =>'اسم القسم مسجل مسبقا',
+            'description.required' =>'يرجي ادخال البيان',
+
+        ]);
+
+        $sections = sections::find($id);
+        $sections->update([
+            'section_name' => $request->section_name,
+            'description' => $request->description,
+        ]);
+
+        session()->flash('edit','تم تعديل القسم بنجاج');
+        return redirect('/sections')->with('toast_success','category has been deleted');
     }
 
     /**
@@ -118,8 +142,19 @@ class SectionsController extends Controller
      * @param  \App\sections  $sections
      * @return \Illuminate\Http\Response
      */
-    public function destroy(sections $sections)
+    public function destroy( Request $request)
     {
-        //
+        $section = sections::findOrfail($request->id);
+
+        $section->delete();
+         return redirect('/sections')->with('info','category has been deleted');
+
+
+        // $id = $request->id;
+        // sections::find($id)->delete();
+        // session()->flash('delete','تم حذف القسم بنجاح');
+        // return redirect('/sections')->with('info','category has been deleted');
+
+
     }
 }
