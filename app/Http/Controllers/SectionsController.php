@@ -1,7 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+<<<<<<< HEAD
 use RealRashid\SweetAlert\Facades\Alert;
+=======
+use Redirect;
+>>>>>>> ea9484a6b37d1067b91e6da92f46ca4ddca638e6
 
 use App\sections;
 use Illuminate\Http\Request;
@@ -98,9 +102,16 @@ class SectionsController extends Controller
      */
     public function edit($id)
     {
+<<<<<<< HEAD
         // $sections = sections::all();
         // $edit1 = sections::findorfail($id);
         // return view ('sections.sections',['sections'=>$sections,'edit1' => $edit1]);
+=======
+        $sections = sections::all();
+        $edit = sections::findOrfail($id);
+
+        return view ('sections.edit',['sections' => $sections , 'edit' => $edit ]);  
+>>>>>>> ea9484a6b37d1067b91e6da92f46ca4ddca638e6
     }
 
     /**
@@ -112,6 +123,7 @@ class SectionsController extends Controller
      */
     public function update(Request $request)
     {
+<<<<<<< HEAD
         $id = $request->id;
 
         $this->validate($request, [
@@ -134,6 +146,24 @@ class SectionsController extends Controller
 
         session()->flash('edit','تم تعديل القسم بنجاج');
         return redirect('/sections')->with('toast_success','category has been deleted');
+=======
+        $section_id = $request->section_id;
+        $update = sections::findorfail($section_id);
+    
+                $update->update([
+                    'section_name' => $request->section_name,
+                    'description' => $request->description,
+                    
+                ]);
+
+        //   return redirect('sections/sections', $section_id);
+        // return \Redirect::back('sections')->with(['global' => 'ERROR deleted the File!.', 'type' => 'danger']);
+        // return \Redirect::back();
+        return redirect('/sections');
+
+        //   return redirect('home',$section_id);
+
+>>>>>>> ea9484a6b37d1067b91e6da92f46ca4ddca638e6
     }
 
     /**
