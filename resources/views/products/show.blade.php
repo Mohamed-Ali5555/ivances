@@ -104,10 +104,10 @@
                                                        data-toggle="modal" href="#exampleModal2"
                                                        title="تعديل"><i class="las la-pen"></i></a> --}}
 
-                                            <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                data-id="{{ $product->id }}"
-                                                data-product_name="{{ $product->product_name }}" data-toggle="modal"
-                                                href="#modaldemo9" title="حذف"><i class="las la-trash"></i></a>
+                                                       <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
+                                                       data-id="{{ $product->id }}" data-product_name="{{ $product->product_name }}"
+                                                       data-toggle="modal" href="#modaldemo9" title="حذف"><i
+                                                           class="las la-trash"></i></a>
                                         </td>
 
 
@@ -188,37 +188,88 @@
         <!-- End Basic modal -->
         {{-- END NEW PRODUCT --}}
     </div>
-
-    <!-- start Basic modal delete -->
-    <!-- delete -->
-    <div class="modal" id="modaldemo9">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+    <!-- Basic EDIT modal -->
+    <div class="modal fade" id="modaldemo2" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
             <div class="modal-content modal-content-demo">
                 <div class="modal-header">
-                    <h6 class="modal-title">حذف القسم</h6><button aria-label="Close" class="close"
+                    <h6 class="modal-title">اضافه قسم </h6><button aria-label="Close" class="close"
                         data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <form enctype="multipart/form-data" method="post" action="{{ route('products.store') }}">
-                    {{ method_field('delete') }}
-                    {{ csrf_field() }}
-                    <div class="modal-body">
-                        <p>هل انت متاكد من عملية الحذف ؟</p><br>
-                        <input type="hidden" name="id" id="id" value="">
-                        <input class="form-control" name="product_name" id="product_name" type="text" readonly>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
-                        <button type="submit" class="btn btn-danger">تاكيد</button>
-                    </div>
+                <div class="modal-body">
+
+
+                    <form action="show/update" enctype="multipart/form-data" method="post">
+                        {{ method_field('patch') }}
+
+
+                        {{ csrf_field() }}
+
+
+
+                        <div class="form-group">
+
+                            <input type="hidden" name="id" id="id" value="">
+
+
+                            <label for="exampleInputEmail1">اسم القسم </label>
+                            <input type="text" class="form-control" id="product_name" name="product_name"
+                                aria-describedby="emailHelp">
+
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">ملاحظات </label>
+                            <textarea class="form-control" id="description" name="description" rows="3"></textarea>
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button class="btn btn-success" type="submit">تاكيد</button>
+                            <button class="btn btn-secondary" data-dismiss="modal" type="button">اغلاق</button>
+                        </div>
+
+                    </form>
+                </div>
             </div>
-            </form>
         </div>
     </div>
+    <!-- End Basic modal EDIT -->
+  
+    <!-- start Basic modal delete -->
+  <!-- delete -->
+  <div class="modal" id="modaldemo9">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content modal-content-demo">
+            <div class="modal-header">
+                <h6 class="modal-title">حذف القسم</h6><button aria-label="Close" class="close" data-dismiss="modal"
+                                                               type="button"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <form action="show/destroy" method="post">
+                {{method_field('delete')}}
+                {{csrf_field()}}
+                <div class="modal-body">
+                    <p>هل انت متاكد من عملية الحذف ؟</p><br>
+                    <input type="hidden" name="id" id="id" value="">
+                    <input class="form-control" name="product_name" id="product_name" type="text" readonly>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+                    <button type="submit" class="btn btn-danger">تاكيد</button>
+                </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+
+<!-- End Basic modal delete -->
 
 
     <!-- End Basic modal delete -->
     <!-- row closed -->
     </div>
+    
     <!-- Container closed -->
     </div>
     <!-- main-content closed -->
@@ -245,16 +296,36 @@
     <script src="{{ URL::asset('assets/js/table-data.js') }}"></script>
     <script src="{{ URL::asset('assets/js/modal.js') }}"></script>
 
-        {{-- JAVASCRIPT DELETE --}}
+  {{-- JAVASCRIPT DELETE --}}
+  <script>
+    $('#modaldemo9').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget)
+        var id = button.data('id')
+        var product_name = button.data('product_name')
+        var modal = $(this)
+        modal.find('.modal-body #id').val(id);
+        modal.find('.modal-body #product_name').val(product_name);
+    })
+</script>
+{{-- END JAVASCRIPT DELETE --}}
+
+
+    {{-- JAVASCRIPT EDIT --}}
     <script>
-        $('#modaldemo9').on('show.bs.modal', function(event) {
+        $('#modaldemo2').on('show.bs.modal', function(event) {
             var button = $(event.relatedTarget)
             var id = button.data('id')
             var product_name = button.data('product_name')
+            var description = button.data('description')
+            var section_id = button.data('section_id')
+
             var modal = $(this)
             modal.find('.modal-body #id').val(id);
             modal.find('.modal-body #product_name').val(product_name);
+            modal.find('.modal-body #description').val(description);
+            modal.find('.modal-body #section_id').val(section_id);
+
         })
     </script>
-    {{-- END JAVASCRIPT DELETE --}}
+    {{-- END JAVASCRIPT EDIT --}}
 @endsection

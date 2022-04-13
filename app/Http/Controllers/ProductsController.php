@@ -101,7 +101,31 @@ class ProductsController extends Controller
      */
     public function update(Request $request, products $products)
     {
-        //
+        $id = $request->id;
+
+        $this->validate($request, [
+
+            'product_name' => 'required|max:255|unique:products,product_name,'.$id,
+            'description' => 'required|max:255|min:2',
+            'section_id' => 'required',
+        ],[
+
+            'product_name.required'=>'يرجى ادخال اسم القسم',
+            'product_name.unique'=>'اسم القسم مسجل مسبقا',
+            'description.required'=>'يرجى ادخال اسم القسم',
+            'section_id.required'=>'يرجى ادخام',
+
+        ]);
+
+        $products = products::find($id);
+        $products->update([
+            'product_name' => $request->product_name,
+            'description' => $request->description,
+            'section_id' => $request->section_id,
+
+        ]);
+
+        return redirect('/show')->with('success','products has been deleted');
     }
 
     /**
@@ -112,9 +136,9 @@ class ProductsController extends Controller
      */
     public function destroy(Request $request)
     {
-        $product = products::findOrfail($request->id);
+        $product = sections::findOrfail($request->id);
 
         $product->delete();
-         return redirect('/show')->with('info','category has been deleted');    
+         return redirect('/show')->with('info','product has been deleted');
 }
 }

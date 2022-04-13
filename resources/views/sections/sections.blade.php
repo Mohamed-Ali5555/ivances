@@ -103,26 +103,7 @@
                                 @foreach ($sections as $section)
                                     <?php $i++; ?>
 
-<<<<<<< HEAD
                                     <tr>
-=======
-                                <tr>
-                               
-                                    <td>{{$i}}</td>
-                                    <td> {{$section->section_name}}</td>
-                                    <td> {{$section->description}}</td>
-
-                                    <td>
-                                        {{-- <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale" data-toggle="modal" href="#modaldemo3 {{route('sections.edit', $section->id)}}">
-                                            <i class="fas fa-pencil"></i>
-                                        </a> --}}
-
-                                        <a class="btn btn-sm btn-info" href="{{route('sections.edit', $section->id)}}">
-                                            <i class="fas fa-pencil"></i>
-                                        </a>
-                                    </td>                               
-                                  
->>>>>>> ea9484a6b37d1067b91e6da92f46ca4ddca638e6
 
                                         <td>{{ $i }}</td>
                                         <td> {{ $section->section_name }}</td>
