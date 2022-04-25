@@ -164,6 +164,11 @@ return [
 
         RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
+        // Spatie\Permission\PermissionServiceProvider::class,
+        // Collective\Html\HtmlServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -174,7 +179,7 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
@@ -232,7 +237,9 @@ return [
 
         'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
 
-
+    'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+    // 'Form' => Collective\Html\FormFacade::class,
+    // 'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 ];

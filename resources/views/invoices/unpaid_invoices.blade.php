@@ -39,9 +39,6 @@
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
                     <a href="{{ route('invoices.create') }}" class="btn btn-success">add new invoices</a>
-                    
-                    <a class="modal-effect btn btn-sm btn-primary" href="{{ url('export_invoices') }}"
-                            style="color:white"><i class="fas fa-file-download"></i>&nbsp;تصدير اكسيل</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -127,12 +124,6 @@
                                                         حالة
                                                         الدفع</a>
 
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('invoices.print_invoices', $invoice->id) }}"><i
-                                                            class=" text-success fas
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    fa-money-bill"></i>&nbsp;&nbsp;تغير
-                                                        طباعه الفاتورة
-                                                        الدفع</a>
 
 
                                                     <a class="dropdown-item" href="#"
@@ -140,8 +131,6 @@
                                                         data-target="#archeve_invoices">
                                                         <i class="text-warning fas fa-exchange-alt"></i>
                                                         &nbsp;&nbsp;add to archeve</a>
-
-                                                        
 
                                                 </div>
                                             </div>

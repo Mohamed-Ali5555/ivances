@@ -38,10 +38,6 @@
                         <h4 class="card-title mg-b-0">Bordered Table</h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
-                    <a href="{{ route('invoices.create') }}" class="btn btn-success">add new invoices</a>
-                    
-                    <a class="modal-effect btn btn-sm btn-primary" href="{{ url('export_invoices') }}"
-                            style="color:white"><i class="fas fa-file-download"></i>&nbsp;تصدير اكسيل</a>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -106,9 +102,9 @@
                                                     type="button">العمليات<i class="fas fa-caret-down ml-1"></i></button>
                                                 <div class="dropdown-menu tx-13">
 
-                                                    <a class="dropdown-item"
+                                                    {{-- <a class="dropdown-item"
                                                         href="{{ route('invoices.edit_invoices', $invoice->id) }}">تعديل
-                                                        الفاتورة</a>
+                                                        الفاتورة</a> --}}
 
 
 
@@ -120,28 +116,20 @@
 
 
 
-                                                    <a class="dropdown-item"
+                                                    {{-- <a class="dropdown-item"
                                                         href="{{ route('invoices.change_status', $invoice->id) }}"><i
                                                             class=" text-success fas
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     fa-money-bill"></i>&nbsp;&nbsp;تغير
                                                         حالة
-                                                        الدفع</a>
+                                                        الدفع</a> --}}
 
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('invoices.print_invoices', $invoice->id) }}"><i
-                                                            class=" text-success fas
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    fa-money-bill"></i>&nbsp;&nbsp;تغير
-                                                        طباعه الفاتورة
-                                                        الدفع</a>
 
 
                                                     <a class="dropdown-item" href="#"
                                                         data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
-                                                        data-target="#archeve_invoices">
+                                                        data-target="#re_archeve_invoices">
                                                         <i class="text-warning fas fa-exchange-alt"></i>
-                                                        &nbsp;&nbsp;add to archeve</a>
-
-                                                        
+                                                        &nbsp;&nbsp;return from archeve</a>
 
                                                 </div>
                                             </div>
@@ -174,12 +162,12 @@
                     <h6 class="modal-title">حذف القسم</h6><button aria-label="Close" class="close"
                         data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <form action="{{ route('invoices.destroy') }}" method="post">
+                <form action="{{route('archeve.destroy')}}" method="post">
                     {{ method_field('delete') }}
                     {{ csrf_field() }}
                     <div class="modal-body">
                         <p>هل انت متاكد من عملية الحذف ؟</p><br>
-                        <input type="text" name="invoice_id" id="invoice_id" value="">
+                        <input type="hidden" name="invoice_id" id="invoice_id" value="">
 
                     </div>
                     <div class="modal-footer">
@@ -191,20 +179,19 @@
         </div>
     </div>
     <!-- archeve invoices -->
-    <div class="modal" id="archeve_invoices">
+    <div class="modal" id="re_archeve_invoices">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content modal-content-demo">
                 <div class="modal-header">
                     <h6 class="modal-title">حذف القسم</h6><button aria-label="Close" class="close"
                         data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
                 </div>
-                <form action="{{ route('invoices.destroy') }}" method="post">
-                    {{ method_field('delete') }}
+                <form action="{{route('archeve.update')}}" method="post">
+                    {{-- {{ method_field('patch') }} --}}
                     {{ csrf_field() }}
                     <div class="modal-body">
                         <p>هل انت متاكد من عملية الارشفه ؟</p><br>
                         <input type="hidden" name="invoice_id" id="invoice_id" value="">
-                        <input type="hidden" name="id_page" id="id_page" value="2">
 
                     </div>
                     <div class="modal-footer">

@@ -38,6 +38,55 @@ Route::post('/sections/destroy','SectionsController@destroy')->name('sections.de
 
 
 Route::post('/products/store','ProductsController@store')->name('products.store');
+##################################################################################
+Route::get('/Section/{id}','InvoicesController@getproducts');
+//////////////////////////////////////////////////////////////////////////////////
+Route::get('/invoices/invoices_details/{id}','InvoicesDetailsController@show')->name('invoices.invoices_details');
+
+
+Route::get('View_file/{invoice_number}/{file_name}','InvoicesDetailsController@open_file');
+Route::get('download/{invoice_number}/{file_name}','InvoicesDetailsController@get_file');
+Route::post('delete_file','InvoicesDetailsController@destroy')->name('delete_file');
+// invoices table 
+// edit envoices 
+Route::get('invoices/edit_invoices/{id}','InvoicesController@edit')->name('invoices.edit_invoices');
+Route::post('invoices/update','InvoicesController@update')->name('invoices.update');
+/////////////////////////////image update///////////////////////////////////
+Route::post('/invoices/invoices_details/store','InvoicesAttachmentsController@store')->name('Invoices_details.store');
+
+Route::post('/invoices/destroy','InvoicesController@destroy')->name('invoices.destroy');
+
+
+Route::get('invoices/change_status/{id}','InvoicesController@change_status')->name('invoices.change_status');
+Route::post('/update_status/update/{id}','InvoicesController@update_status')->name('invoices.update_status');
+
+//////////////////////////////////////////////////////////////////////
+// archeve page and routes 
+Route::get('/archevis_invoices','ArchevisController@index')->name('archevis_invoices');
+// return from archeve to invoices table 
+Route::post('/archevis_invoices/update','ArchevisController@update')->name('archeve.update');
+// delete 
+Route::delete('/archevis_invoices/destroy','ArchevisController@destroy')->name('archeve.destroy');
+
+// status condion 
+
+Route::get('/paid_invoices','InvoicesController@paid_status')->name('paid_invoices');
+Route::get('/partpaid_invoices','InvoicesController@unpaid_status')->name('partpaid_invoices');
+Route::get('/unpaid_invoices','InvoicesController@paidpart_status')->name('unpaid_invoices');
+// priny invoices 
+Route::get('/print_invoices/{id}','InvoicesController@print_invoices')->name('invoices.print_invoices');
+// \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+// excel route 
+// Route::get('export_invoices/', [InvoicesController::class, 'export']);
+Route::get('export_invoices','InvoicesController@export');
+
+// Route::get('/invoices/invoices_details/{id}','InvoicesDetailsController@show')->name('invoices.invoices_details');
+###########################################################
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
+    
+});
 
 ####################################################
 Route::get('/{page}', 'AdminController@index');
