@@ -38,10 +38,13 @@
                         <h4 class="card-title mg-b-0">Bordered Table</h4>
                         <i class="mdi mdi-dots-horizontal text-gray"></i>
                     </div>
-                    <a href="{{ route('invoices.create') }}" class="btn btn-success">add new invoices</a>
-                    
-                    <a class="modal-effect btn btn-sm btn-primary" href="{{ url('export_invoices') }}"
+                    @can('اضافة فاتورة')
+                        <a href="{{ route('invoices.create') }}" class="btn btn-success">add new invoices</a>
+                    @endcan
+                    @can('تصدير EXCEL')
+                        <a class="modal-effect btn btn-sm btn-primary" href="{{ url('export_invoices') }}"
                             style="color:white"><i class="fas fa-file-download"></i>&nbsp;تصدير اكسيل</a>
+                    @endcan
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -106,42 +109,48 @@
                                                     type="button">العمليات<i class="fas fa-caret-down ml-1"></i></button>
                                                 <div class="dropdown-menu tx-13">
 
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('invoices.edit_invoices', $invoice->id) }}">تعديل
-                                                        الفاتورة</a>
+
+                                                    @can('تعديل الفاتورة')
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('invoices.edit_invoices', $invoice->id) }}">تعديل
+                                                            الفاتورة</a>
+                                                    @endcan
 
 
+                                                    @can('حذف الفاتورة')
+                                                        <a class="dropdown-item" href="#"
+                                                            data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
+                                                            data-target="#delete_invoice"><i
+                                                                class="text-danger fas fa-trash-alt"></i>
+                                                            &nbsp;&nbsp;delete</a>
+                                                    @endcan
 
-                                                    <a class="dropdown-item" href="#"
-                                                        data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
-                                                        data-target="#delete_invoice"><i
-                                                            class="text-danger fas fa-trash-alt"></i>
-                                                        &nbsp;&nbsp;delete</a>
 
-
-
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('invoices.change_status', $invoice->id) }}"><i
-                                                            class=" text-success fas
+                                                    @can('تغير حالة الدفع')
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('invoices.change_status', $invoice->id) }}"><i
+                                                                class=" text-success fas
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     fa-money-bill"></i>&nbsp;&nbsp;تغير
-                                                        حالة
-                                                        الدفع</a>
-
-                                                    <a class="dropdown-item"
-                                                        href="{{ route('invoices.print_invoices', $invoice->id) }}"><i
-                                                            class=" text-success fas
+                                                            حالة
+                                                            الدفع</a>
+                                                    @endcan
+                                                    @can('طباعةالفاتورة')
+                                                        <a class="dropdown-item"
+                                                            href="{{ route('invoices.print_invoices', $invoice->id) }}"><i
+                                                                class=" text-success fas
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     fa-money-bill"></i>&nbsp;&nbsp;تغير
-                                                        طباعه الفاتورة
-                                                        الدفع</a>
+                                                            طباعه الفاتورة
+                                                            الدفع</a>
+                                                    @endcan
 
+                                                    @can('ارشفة الفاتورة')
+                                                        <a class="dropdown-item" href="#"
+                                                            data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
+                                                            data-target="#archeve_invoices">
+                                                            <i class="text-warning fas fa-exchange-alt"></i>
+                                                            &nbsp;&nbsp;add to archeve</a>
+                                                    @endcan
 
-                                                    <a class="dropdown-item" href="#"
-                                                        data-invoice_id="{{ $invoice->id }}" data-toggle="modal"
-                                                        data-target="#archeve_invoices">
-                                                        <i class="text-warning fas fa-exchange-alt"></i>
-                                                        &nbsp;&nbsp;add to archeve</a>
-
-                                                        
 
                                                 </div>
                                             </div>

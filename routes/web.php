@@ -81,10 +81,23 @@ Route::get('/print_invoices/{id}','InvoicesController@print_invoices')->name('in
 Route::get('export_invoices','InvoicesController@export');
 
 // Route::get('/invoices/invoices_details/{id}','InvoicesDetailsController@show')->name('invoices.invoices_details');
+###############################################################
+##################################################################
+    //    invoices_report 
+    Route::get('/invoices_report','Invoices_reportController@index')->name('invoices_report');
+    Route::post('/search_invoices','Invoices_reportController@Search_invoices')->name('Search_invoices');
+
+########################################################
+         //customer report
+    Route::get('/customers_report','Customers_reportController@index')->name('customers_report');
+    Route::post('/customer_search','Customers_reportController@Search_customers')->name('customer_search');
+
 ###########################################################
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
+    Route::post('/users/destroy','UserController@destroy')->name('users.destroy');
+
     
 });
 

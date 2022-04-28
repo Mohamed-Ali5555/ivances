@@ -1,13 +1,11 @@
 <?php
-  
-namespace Database\Seeders;
-  
+
 use Illuminate\Database\Seeder;
-use App\Models\User;
+use App\User;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-  
-class CreateAdminUserSeeder extends Seeder
+
+class AhmedSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,10 +17,13 @@ class CreateAdminUserSeeder extends Seeder
         $user = User::create([
             'name' => 'mohamed ali', 
             'email' => 'mohamed@gmail.com',
-            'password' => bcrypt('01230123')
+            'password' => bcrypt('01230123'),
+            'roles_name' => ['owner'],
+            'status' => 'مفعل',
+
         ]);
     
-        $role = Role::create(['name' => 'Admin']);
+        $role = Role::create(['name' => 'owner']);
      
         $permissions = Permission::pluck('id','id')->all();
    

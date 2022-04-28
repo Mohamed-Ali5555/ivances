@@ -46,7 +46,7 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|same:confirm-password',
-            'roles' => 'required'
+            'roles_name' => 'required'
         ]);
     
         $input = $request->all();
@@ -125,8 +125,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
+        $id=$request->user_id;
+
         User::find($id)->delete();
         return redirect()->route('users.index')
                         ->with('success','User deleted successfully');

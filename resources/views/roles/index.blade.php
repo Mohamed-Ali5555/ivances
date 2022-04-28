@@ -67,7 +67,7 @@
                 <div class="d-flex justify-content-between">
                     <div class="col-lg-12 margin-tb">
                         <div class="pull-right">
-                            @can('اضافة صلاحية')
+                            @can( 'اضافة صلاحية')
                                 <a class="btn btn-primary btn-sm" href="{{ route('roles.create') }}">اضافة</a>
                             @endcan
                         </div>

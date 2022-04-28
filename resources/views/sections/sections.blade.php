@@ -80,8 +80,10 @@
                 <div class="card-header pb-0">
                     <div class="d-flex justify-content-between">
                         <div class="col-sm-6 col-md-4 col-xl-3">
-                            <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale"
-                                data-toggle="modal" href="#modaldemo8">Scale</a>
+                            @can('اضافة قسم')
+                                <a class="modal-effect btn btn-outline-primary btn-block" data-effect="effect-scale"
+                                    data-toggle="modal" href="#modaldemo8">add sections</a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -122,24 +124,25 @@
 
 
                                         <td>
-                                            <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
-                                                data-toggle="modal" data-id="{{ $section->id }}"
-                                                data-section_name="{{ $section->section_name }}"
-                                                data-description="{{ $section->description }}" href="#modaldemo2">
-                                                <i class="las la-pen"></i></a>
-
-
+                                            @can('تعديل قسم')
+                                                <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
+                                                    data-toggle="modal" data-id="{{ $section->id }}"
+                                                    data-section_name="{{ $section->section_name }}"
+                                                    data-description="{{ $section->description }}" href="#modaldemo2">
+                                                    <i class="las la-pen"></i></a>
+                                            @endcan
                                             {{-- <a class="modal-effect btn btn-sm btn-info" data-effect="effect-scale"
                                                        data-id="{{ $x->id }}"
                                                         data-section_name="{{ $x->section_name }}"
                                                        data-description="{{ $x->description }}" 
                                                        data-toggle="modal" href="#exampleModal2"
                                                        title="تعديل"><i class="las la-pen"></i></a> --}}
-
-                                            <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
-                                                data-id="{{ $section->id }}" data-section_name="{{ $section->section_name }}"
-                                                data-toggle="modal" href="#modaldemo9" title="حذف"><i
-                                                    class="las la-trash"></i></a>
+                                            @can('حذف قسم')
+                                                <a class="modal-effect btn btn-sm btn-danger" data-effect="effect-scale"
+                                                    data-id="{{ $section->id }}"
+                                                    data-section_name="{{ $section->section_name }}" data-toggle="modal"
+                                                    href="#modaldemo9" title="حذف"><i class="las la-trash"></i></a>
+                                            @endcan
                                         </td>
 
 
@@ -246,30 +249,30 @@
 
 
     <!-- start Basic modal delete -->
-  <!-- delete -->
-                    <div class="modal" id="modaldemo9">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content modal-content-demo">
-                                <div class="modal-header">
-                                    <h6 class="modal-title">حذف القسم</h6><button aria-label="Close" class="close" data-dismiss="modal"
-                                                                                   type="button"><span aria-hidden="true">&times;</span></button>
-                                </div>
-                                <form action="sections/destroy" method="post">
-                                    {{method_field('delete')}}
-                                    {{csrf_field()}}
-                                    <div class="modal-body">
-                                        <p>هل انت متاكد من عملية الحذف ؟</p><br>
-                                        <input type="hidden" name="id" id="id" value="">
-                                        <input class="form-control" name="section_name" id="section_name" type="text" readonly>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
-                                        <button type="submit" class="btn btn-danger">تاكيد</button>
-                                    </div>
-                            </div>
-                            </form>
-                        </div>
+    <!-- delete -->
+    <div class="modal" id="modaldemo9">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content modal-content-demo">
+                <div class="modal-header">
+                    <h6 class="modal-title">حذف القسم</h6><button aria-label="Close" class="close"
+                        data-dismiss="modal" type="button"><span aria-hidden="true">&times;</span></button>
+                </div>
+                <form action="sections/destroy" method="post">
+                    {{ method_field('delete') }}
+                    {{ csrf_field() }}
+                    <div class="modal-body">
+                        <p>هل انت متاكد من عملية الحذف ؟</p><br>
+                        <input type="hidden" name="id" id="id" value="">
+                        <input class="form-control" name="section_name" id="section_name" type="text" readonly>
                     </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
+                        <button type="submit" class="btn btn-danger">تاكيد</button>
+                    </div>
+            </div>
+            </form>
+        </div>
+    </div>
 
 
     <!-- End Basic modal delete -->

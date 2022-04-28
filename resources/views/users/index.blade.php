@@ -68,13 +68,13 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>
-                                        @if ($user->Status == 'مفعل')
+                                        @if ($user->status == 'مفعل')
                                             <span class="label text-success d-flex">
-                                                <div class="dot-label bg-success ml-1"></div>{{ $user->Status }}
+                                                <div class="dot-label bg-success ml-1"></div>{{ $user->status }}
                                             </span>
                                         @else
                                             <span class="label text-danger d-flex">
-                                                <div class="dot-label bg-danger ml-1"></div>{{ $user->Status }}
+                                                <div class="dot-label bg-danger ml-1"></div>{{ $user->status }}
                                             </span>
                                         @endif
                                     </td>
@@ -88,7 +88,7 @@
                                     </td>
 
                                     <td>
-                                        @can('تعديل مستخدم')
+                                        @can( 'تعديل مستخدم')
                                             <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-info"
                                                 title="تعديل"><i class="las la-pen"></i></a>
                                         @endcan
@@ -123,8 +123,8 @@
                     {{ csrf_field() }}
                     <div class="modal-body">
                         <p>هل انت متاكد من عملية الحذف ؟</p><br>
-                        <input type="hidden" name="user_id" id="user_id" value="">
-                        <input class="form-control" name="username" id="username" type="text" readonly>
+                        <input type="text" name="user_id" id="user_id" value="">
+                        {{-- <input class="form-control" name="username" id="username" type="text" readonly> --}}
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">الغاء</button>
