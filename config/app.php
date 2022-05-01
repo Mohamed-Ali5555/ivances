@@ -169,7 +169,8 @@ return [
         // Spatie\Permission\PermissionServiceProvider::class,
         // Collective\Html\HtmlServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
-
+        ////charts   fx3costa
+        Fx3costa\LaravelChartJs\Providers\ChartjsServiceProvider::class,
         /*
          * Package Service Providers...
          */

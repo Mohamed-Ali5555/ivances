@@ -108,8 +108,17 @@ class InvoicesController extends Controller
             $request->pic->move(public_path('Attachments/' . $invoice_number), $imageName);
          }
         //  section notification (send mail)
-        $user = User::first();
-        Notification::send($user, new InvoicePaid($invoice_id));
+        
+      //  $user = User::first();
+      //  Notification::send($user, new InvoicePaid($invoice_id));
+
+        $user = User::get(); // to send notification to all users and admin
+     //   $user = User::find(Auth::user()->id);  //to send notification to the user who make onvoice
+
+        $invoices = invoices::latest()->first();
+        Notification::send($user, new \App\Notifications\Addinvoices($invoices));
+
+
         return back()->with('success','invoices has been added');
 
     }
@@ -330,4 +339,25 @@ public function export()
     {
         return Excel::download(new InvoicesExport, 'invoices.xlsx');
     }
+
+
+
+
+    public function MarkAsRead_all (Request $request)
+    {
+
+        $userUnreadNotification= auth()->user()->unreadNotifications;
+
+        if($userUnreadNotification) {
+            $userUnreadNotification->markAsRead();
+            return back();
+        }
+
+
+    }
+
+
+
+
+
 }
